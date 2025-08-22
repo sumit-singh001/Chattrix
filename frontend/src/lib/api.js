@@ -23,7 +23,6 @@ export const getAuthUser = async() => {
       } catch (error) {
         console.log(error);
         return null;
-        
       }
 }
 

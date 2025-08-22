@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router';
 import { BadgeCent } from 'lucide-react';
-import useSignUp from '../hooks/useSignup.js';
+import useSignUp from '../hooks/useSignUp.js';
 
 const SignUppPage = () => {
   const [signupData, setSingnupData] = useState({
