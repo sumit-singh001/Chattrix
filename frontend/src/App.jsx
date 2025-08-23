@@ -12,6 +12,7 @@ import PageLoader from "./compass/PageLoader.jsx"
 import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './compass/Layout.jsx'
 import { useThemeStore } from './store/useThemeStore.js'
+import FriendsPage from './pages/FriendsPage.jsx'
 
 
 const App = () => {
@@ -34,9 +35,19 @@ const App = () => {
             <HomePage/>
           </Layout>
          ): ( <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />)} />
+
         <Route path="/signup" element= {!isAuthenticated? (<SignUpPage/>) : (<Navigate to={isOnboarded ? "/" : "/onboarding"} />)}/>
+
         <Route path="/login" element= {!isAuthenticated? (<LoginPage/>) : (<Navigate to={isOnboarded ? "/" : "/onboarding"} />)} />
-        <Route path="/onboarding" element= {isAuthenticated ? (!isOnboarded ? <OnboardingPage/> : <Navigate to="/"/> ) : (<Navigate to="/login" />)} />
+
+        <Route path="/onboarding" element= {isAuthenticated ? (<OnboardingPage/> ) : (<Navigate to="/login" />)} />
+
+        <Route path="/friends" element= {isAuthenticated && isOnboarded ? (
+          <Layout showSidebar={true}>
+            <FriendsPage/>
+          </Layout>
+          ) : (<Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />)} />
+        
         <Route path="/notifications" element= {isAuthenticated && isOnboarded ? (
           <Layout showSidebar={true}>
             <NotificationsPage/>

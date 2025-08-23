@@ -56,6 +56,11 @@ export async function acceptFriendRequests(reqId){
   return response.data
 }
 
+export async function deleteMyFriend(friendId){
+  const response = await axiosInstance.post(`/users/delete-friend/${friendId}`);
+  return response.data
+}
+
 export async function getStreamToken(){
   const response = await axiosInstance.get("/chat/token");
   return response.data

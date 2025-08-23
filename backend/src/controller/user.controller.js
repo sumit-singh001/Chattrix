@@ -104,6 +104,52 @@ export async function acceptFriendRequest(req,res) {
     }
 }
 
+export async function deleteFriend(req, res) {
+  try {
+    const myId = req.user.id;
+    const { id: friendId } = req.params;
+
+    // Prevent removing yourself
+    if (myId === friendId) {
+      return res.status(400).json({ message: "You can't remove yourself as a friend" });
+    }
+
+    // Check if the friend exists
+    const friend = await User.findById(friendId);
+    if (!friend) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if they are actually friends
+    const currentUser = await User.findById(myId);
+    if (!currentUser.friends.includes(friendId)) {
+      return res.status(400).json({ message: "You are not friends with this user" });
+    }
+
+    // Remove each other from friends list
+    await User.findByIdAndUpdate(myId, {
+      $pull: { friends: friendId }
+    });
+
+    await User.findByIdAndUpdate(friendId, {
+      $pull: { friends: myId }
+    });
+
+    // Optional: Remove any existing friend requests between them
+    await FriendRequest.deleteMany({
+      $or: [
+        { sender: myId, recipient: friendId },
+        { sender: friendId, recipient: myId },
+      ],
+    });
+
+    res.status(200).json({ message: "Friend removed successfully" });
+  } catch (error) {
+    console.error("Error in deleteFriendById controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 export async function getFriendRequests(req,res) {
     try {
         const incomingReqs = await FriendRequest.find({

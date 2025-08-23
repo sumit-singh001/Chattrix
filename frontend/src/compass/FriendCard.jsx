@@ -1,7 +1,18 @@
 import { Link } from "react-router";
 import { LANGUAGE_TO_FLAG } from "../constants";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteMyFriend } from "../lib/api";
+import { DeleteIcon, Trash } from "lucide-react";
 
 const FriendCard = ({ friend }) => {
+  const queryClient = useQueryClient();
+  const {mutate:deleteFriend,isPending} = useMutation({
+    mutationFn: deleteMyFriend,
+    onSuccess: () => {
+    // Invalidate and refetch friends list
+    queryClient.invalidateQueries(['friends']); // adjust key based on your query key
+  }
+  })
   return (
     <div className="card bg-base-200 hover:shadow-md transition-shadow">
       <div className="card-body p-4">
@@ -27,6 +38,10 @@ const FriendCard = ({ friend }) => {
         <Link to={`/chat/${friend._id}`} className="btn btn-outline w-full">
           Message
         </Link>
+        <button onClick={() => deleteFriend(friend._id)} className="btn btn-warning w-full" disabled={isPending}>
+          <Trash />
+          {isPending ? "Deleting..." : "Delete Friend"}
+        </button>
       </div>
     </div>
   );
