@@ -1,7 +1,7 @@
 import React from 'react'
 import useAuthUser from '../hooks/useAuthUser.js'
 import { Link, useLocation } from 'react-router';
-import { BadgeCent, BellIcon, HomeIcon, UsersIcon } from 'lucide-react';
+import { BadgeCent, BellIcon, BotMessageSquare, HomeIcon, UsersIcon } from 'lucide-react';
 
 function Sidebar() {
     const {authUser} = useAuthUser();
@@ -47,6 +47,15 @@ function Sidebar() {
         >
           <BellIcon className="size-5 text-base-content opacity-70" />
           <span>Notifications</span>
+        </Link>
+        <Link
+          to="/aiChat"
+          className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+            currentPath === "/notifications" ? "btn-active" : ""
+          }`}
+        >
+          <BotMessageSquare className="size-5 text-base-content opacity-70" />
+          <span>Chat with AI</span>
         </Link>
         </nav>
 

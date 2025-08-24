@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth.route.js";
 import usersRoutes from "./routes/users.route.js";
 import chatRoutes from "./routes/chat.route.js";
 import { connectDb } from "./lib/db.js";
+import aiRoutes from './routes/ai.route.js'
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(cors({
 app.use("/api/auth",authRoutes);
 app.use("/api/users",usersRoutes);
 app.use("/api/chat",chatRoutes);
+app.use("/api/ai",aiRoutes);
 
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname,"../frontend/dist")));

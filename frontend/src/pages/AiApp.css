@@ -1,0 +1,157 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+/* Main layout */
+main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1a1a1a, #2a2a2a);
+}
+
+/* Review container (full-screen above input) */
+.review-container {
+  flex: 1;
+  height: 80%;
+  width: 100%;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-color: #222222;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+/* Error message */
+.review-container .error {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Markdown styling */
+.review-container h1,
+.review-container h2,
+.review-container h3 {
+  color: #00b4d8;
+  margin: 0.5rem 0;
+}
+
+.review-container p {
+  margin-bottom: 1rem;
+  color: #d0d0d0;
+  line-height: 1.6;
+}
+
+.review-container code {
+  background-color: #3a3a3a;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Input container (fixed at bottom) */
+.input-container {
+  width: 100%;
+  padding: 1rem;
+  background-color: #2a2a2a;
+  border-top: 1px solid #3a3a3a;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* Code editor input */
+.input-container .code-input {
+  width: 100%;
+  resize: vertical;
+  background: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
+}
+
+.input-container .code-input::placeholder {
+  color: #888888;
+}
+
+/* Review button */
+.input-container .review-button {
+  background: linear-gradient(45deg, #00b4d8, #0096c7);
+  padding: 0.75rem 2rem;
+  margin-top: 1.75rem;
+  border: none;
+  height: 3rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-container .review-button:hover {
+  background: linear-gradient(45deg, #00d4ff, #00b4d8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 180, 216, 0.4);
+}
+
+.input-container .review-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 180, 216, 0.2);
+}
+
+.input-container .review-button.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  main {
+    padding: 0.5rem;
+  }
+
+  .review-container {
+    padding: 1rem;
+  }
+
+  .input-container {
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .input-container .review-button {
+    width: 100%;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .review-container {
+    font-size: 0.9rem;
+  }
+
+  .input-container .code-input {
+    font-size: 0.85rem;
+  }
+
+  .input-container .review-button {
+    font-size: 0.9rem;
+  }
+}

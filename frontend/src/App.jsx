@@ -13,6 +13,7 @@ import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './compass/Layout.jsx'
 import { useThemeStore } from './store/useThemeStore.js'
 import FriendsPage from './pages/FriendsPage.jsx'
+import AiChatPage from './pages/AiChatPage.jsx'
 
 
 const App = () => {
@@ -56,6 +57,11 @@ const App = () => {
         <Route path="/chat/:id" element= {isAuthenticated && isOnboarded ? (
           <Layout showSidebar={false}>
             <ChatPage/>
+          </Layout>
+          ) : (<Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />)} />
+          <Route path="/aiChat" element= {isAuthenticated && isOnboarded ? (
+          <Layout showSidebar={false}>
+            <AiChatPage/>
           </Layout>
           ) : (<Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />)} />
         <Route path="/call/:id" element= {isAuthenticated && isOnboarded ? (
