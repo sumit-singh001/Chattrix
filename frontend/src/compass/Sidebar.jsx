@@ -51,7 +51,7 @@ function Sidebar() {
         <Link
           to="/aiChat"
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
-            currentPath === "/notifications" ? "btn-active" : ""
+            currentPath === "/aiChat" ? "btn-active" : ""
           }`}
         >
           <BotMessageSquare className="size-5 text-base-content opacity-70" />
